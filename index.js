@@ -23,8 +23,10 @@ mongoose.connect(config.DB, { useNewUrlParser: true }).then(
 );
 app.use(cors());
 
-const routeController  = require('./router/router.controller');
-app.use('/product/api/', routeController);
+const proRoute = require('./router/product.router');
+app.use('/product/api/', proRoute);
+// const routeController  = require('./router/router.controller');
+// app.use('/product/api/', routeController);
 
 app.listen(PORT, function () {
     console.log(`Server is running on http://localhost:${PORT}`);
