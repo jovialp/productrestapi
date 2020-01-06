@@ -4,30 +4,29 @@ const config = require('./config/DB');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const PORT = Number(process.env.PORT ||3000);
+const PORT = Number(process.env.PORT || 3000);
 
-
-
-//body parser will receive post data from front end
+// body parser will receive post data from front end
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//db connection
+// set global promise for mongoose
+mongoose.Promise = global.Promise;
+
+// db connection
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
-    res => {
-        console.log('Database Successfully Connected');
-    },
-    err => {
-        console.log(err);
-    }
+  res => {
+    console.log('Database successfully connected');
+  },
+  err => {
+    console.log(err);
+  }
 );
 app.use(cors());
 
-// const proRoute = require('./router/product.router');
-// app.use('/product/api/', proRoute);
 const routeController  = require('./router/router.controller');
 app.use('/product/api/', routeController);
 
-app.listen(PORT, function () {
-    console.log(`Server is running on http://localhost:${PORT}`);
-})
+app.listen(PORT, function() {
+  console.log(`Server is running on url http://localhost:${PORT}`);
+});
